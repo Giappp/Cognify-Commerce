@@ -1,0 +1,12 @@
+.dockerignore
+compose.yml
+Dockerfile
+
+secrets
+
+.env
+.gitattributes
+.gitignore
+.HELP.md
+.idea
+.mvn
