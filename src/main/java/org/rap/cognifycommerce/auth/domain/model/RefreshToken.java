@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain;
+package org.rap.cognifycommerce.auth.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,4 +27,8 @@ public class RefreshToken extends BaseEntity {
     private String deviceInfo;
 
     private String ipAddress;
+
+    public boolean isExpired() {
+        return expiresAt.isBefore(LocalDateTime.now());
+    }
 }

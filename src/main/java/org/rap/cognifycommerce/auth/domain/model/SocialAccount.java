@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain;
+package org.rap.cognifycommerce.auth.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
