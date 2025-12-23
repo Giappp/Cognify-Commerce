@@ -1,12 +1,11 @@
-package org.rap.cognifycommerce.auth.infrastructure.web;
+package org.rap.cognifycommerce.auth.infrastructure.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.rap.cognifycommerce.auth.application.services.UserService;
-import org.rap.cognifycommerce.auth.domain.model.User;
+import org.rap.cognifycommerce.auth.application.services.UserDetailsServiceImpl;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
-    private final UserService userService;
+    private final UserDetailsServiceImpl userService;
 
     @Override
     @SuppressWarnings("NullableProblems")
@@ -27,10 +26,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = parseJwt(request);
         if (jwt != null && jwtProvider.validateToken(jwt)) {
             String username = jwtProvider.getUserEmailFromToken(jwt);
-            User userDetails = userService.loadUserByUsername(username);
+            SecurityUser securityUser = userService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

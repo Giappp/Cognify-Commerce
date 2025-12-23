@@ -1,9 +1,8 @@
-package org.rap.cognifycommerce.auth.infrastructure.web;
+package org.rap.cognifycommerce.auth.infrastructure.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.rap.cognifycommerce.auth.domain.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,9 @@ public class JwtProvider {
         return secretKey;
     }
 
-    public String generateAccessToken(User user) {
+    public String generateAccessToken(SecurityUser user) {
         return Jwts.builder()
-                .subject(user.getEmail())
+                .subject(user.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpirationMs))
                 .claim("roles", user.getAuthorities())

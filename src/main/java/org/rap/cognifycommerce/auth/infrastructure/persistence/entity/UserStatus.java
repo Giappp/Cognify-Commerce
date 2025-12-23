@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain.model;
+package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 
 public enum UserStatus {
     ACTIVE,

@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain.model;
+package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,5 +13,5 @@ import org.rap.cognifycommerce.common.domain.BaseEntity;
 @Setter
 public class Permission extends BaseEntity {
     @Column(unique = true, nullable = false)
-    private String name; // e.g., "product:read", "order:create"
+    private String name;
 }

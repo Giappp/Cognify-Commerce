@@ -1,16 +1,13 @@
 package org.rap.cognifycommerce.auth.domain.repositories;
 
-import lombok.NonNull;
-import org.rap.cognifycommerce.auth.domain.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.rap.cognifycommerce.auth.infrastructure.persistence.entity.UserJpaEntity;
 
 import java.util.Optional;
-import java.util.UUID;
 
-@Repository
-public interface UserRepository extends JpaRepository<@NonNull User, @NonNull UUID> {
-    Optional<User> findByEmail(String email);
+public interface UserRepository {
+    Optional<UserJpaEntity> findByEmail(String email);
 
-    Optional<User> findByUsername(String username);
+    UserJpaEntity save(UserJpaEntity user);
+
+    boolean existsByEmail(String email);
 }

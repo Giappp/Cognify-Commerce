@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain.model;
+package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import org.rap.cognifycommerce.common.domain.BaseEntity;
 public class SocialAccount extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserJpaEntity user;
 
     private String provider; // e.g., "google", "facebook"
 

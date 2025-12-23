@@ -1,7 +1,8 @@
-package org.rap.cognifycommerce.auth.infrastructure.web;
+package org.rap.cognifycommerce.auth.infrastructure.security;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.rap.cognifycommerce.auth.application.services.UserService;
+import org.rap.cognifycommerce.auth.application.services.UserDetailsServiceImpl;
 import org.rap.cognifycommerce.auth.infrastructure.constants.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final UserDetailsServiceImpl userService;
     private final JwtAuthenticationFilter jwtFilter;
 
     @Bean
@@ -41,6 +42,11 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.userDetailsService(userService);
         http.authenticationProvider(authenticationProvider());
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint((req, response, e) -> {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Token không hợp lệ hoặc đã hết hạn\"}");
+        }));
         return http.build();
     }
 

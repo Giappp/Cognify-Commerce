@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain.model;
+package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class RefreshToken extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private UserJpaEntity user;
 
     @Column(nullable = false, updatable = true)
     private String token;
@@ -27,8 +27,4 @@ public class RefreshToken extends BaseEntity {
     private String deviceInfo;
 
     private String ipAddress;
-
-    public boolean isExpired() {
-        return expiresAt.isBefore(LocalDateTime.now());
-    }
 }

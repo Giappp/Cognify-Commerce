@@ -1,16 +1,16 @@
-package org.rap.cognifycommerce.auth.domain.model;
+package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jspecify.annotations.Nullable;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.rap.cognifycommerce.common.domain.BaseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 @Table(name = "users")
 @NoArgsConstructor
-public class User extends BaseEntity implements UserDetails {
+public class UserJpaEntity extends BaseEntity {
     @Column(unique = true, length = 50)
     private String username;
 
@@ -42,14 +42,7 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RefreshToken> refreshTokens = new HashSet<>();
 
-    @Override
-    @SuppressWarnings("NullableProblems")
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().toList();
-    }
-
-    @Override
-    public @Nullable String getPassword() {
-        return "";
-    }
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> metadata = new HashMap<>();
 }

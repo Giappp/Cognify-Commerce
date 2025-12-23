@@ -1,4 +1,4 @@
-package org.rap.cognifycommerce.auth.domain.exception;
+package org.rap.cognifycommerce.auth.application.exception;
 
 import lombok.Getter;
 
