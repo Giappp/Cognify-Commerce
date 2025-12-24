@@ -9,7 +9,7 @@ import org.rap.cognifycommerce.common.domain.BaseEntity;
 @Table(name = "social_accounts")
 @Getter
 @Setter
-public class SocialAccount extends BaseEntity {
+public class SocialAccountJpaEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserJpaEntity user;
@@ -18,4 +18,6 @@ public class SocialAccount extends BaseEntity {
 
     @Column(name = "provider_id")
     private String providerId;
+    
+    private String profileUrl;
 }

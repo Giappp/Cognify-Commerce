@@ -11,7 +11,7 @@ import org.rap.cognifycommerce.common.domain.BaseEntity;
 @Table(name = "permissions")
 @Getter
 @Setter
-public class Permission extends BaseEntity {
+public class PermissionJpaEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String name;
 }

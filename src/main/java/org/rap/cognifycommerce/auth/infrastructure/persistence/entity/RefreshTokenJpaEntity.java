@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "refresh_tokens")
 @Getter
 @Setter
-public class RefreshToken extends BaseEntity {
+public class RefreshTokenJpaEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserJpaEntity user;

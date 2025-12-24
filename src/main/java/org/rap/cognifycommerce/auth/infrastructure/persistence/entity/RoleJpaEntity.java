@@ -3,9 +3,7 @@ package org.rap.cognifycommerce.auth.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.jspecify.annotations.Nullable;
 import org.rap.cognifycommerce.common.domain.BaseEntity;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "roles")
-public class Role extends BaseEntity implements GrantedAuthority {
+public class RoleJpaEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
@@ -24,10 +22,5 @@ public class Role extends BaseEntity implements GrantedAuthority {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
-    private Set<Permission> permissions = new HashSet<>();
-
-    @Override
-    public @Nullable String getAuthority() {
-        return "ROLE_" + name;
-    }
+    private Set<PermissionJpaEntity> permissionJpaEntities = new HashSet<>();
 }

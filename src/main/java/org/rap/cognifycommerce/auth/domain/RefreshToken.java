@@ -12,9 +12,9 @@ public class RefreshToken {
     private final String ipAddress;
     private boolean revoked;
 
-    RefreshToken(String token, long ttlMinutes, String deviceInfo, String ipAddress) {
+    RefreshToken(String token, LocalDateTime expiryDate, String deviceInfo, String ipAddress) {
         this.token = token;
-        this.expiryDate = LocalDateTime.now().plusMinutes(ttlMinutes);
+        this.expiryDate = expiryDate;
         this.deviceInfo = deviceInfo;
         this.ipAddress = ipAddress;
         this.revoked = false;
